@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { History } from '../component/History';
 import Footer from '../component/Footer';
+import { axiosInstance } from '../config/config';
 dayjs.extend(relativeTime);
 
 export const Dashboard = () => {
@@ -21,7 +22,7 @@ export const Dashboard = () => {
 
   const fetchShortUrls = async () => {
     const token = cookies.get('access_token');
-    const res = await axios.get('http://localhost:8000/url', {
+    const res = await axiosInstance.get('/url', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -33,8 +34,8 @@ export const Dashboard = () => {
 
   const shortenUrl = async (value: { fullUrl: string; customUrl: string }) => {
     const token = cookies.get('access_token');
-    const res = await axios.post(
-      'http://localhost:8000/url',
+    const res = await axiosInstance.post(
+      '/url',
       value,
       {
         headers: {

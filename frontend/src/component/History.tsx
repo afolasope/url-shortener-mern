@@ -1,17 +1,17 @@
-import axios from 'axios';
 import { useQuery } from 'react-query';
 import Cookies from 'universal-cookie';
 import { IHistory } from '../interface';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { MdTimer } from 'react-icons/md';
+import { axiosInstance } from '../config/config';
 dayjs.extend(relativeTime);
 
 export const History = () => {
   const cookies = new Cookies();
   const getHistory = async () => {
     const token = cookies.get('access_token');
-    const res = await axios.get('http://localhost:8000/history', {
+    const res = await axiosInstance.get(`/url/history`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

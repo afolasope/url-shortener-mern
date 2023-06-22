@@ -10,6 +10,7 @@ import { LinkCard } from '../component/LinkCard';
 import Footer from '../component/Footer';
 import bgboostDesktop from '../assets/images/bg-boost-desktop.svg';
 import illustrationWorking from '../assets/images/illustration-working.svg';
+import { axiosInstance } from '../config/config';
 
 const uuid = `${generateNumber()}`;
 const Home = () => {
@@ -19,7 +20,7 @@ const Home = () => {
 
   const shortenUrl = async (value: { fullUrl: string }) => {
     const XUserId = cookies.get('x-user-id');
-    const res = await axios.post('http://localhost:8000/url', value, {
+    const res = await axiosInstance.post(`/url`, value, {
       headers: {
         'x-user-id': XUserId ? XUserId : uuid,
       },
@@ -30,7 +31,7 @@ const Home = () => {
 
   const fetchShortUrls = async () => {
     const XUserId = cookies.get('x-user-id');
-    const res = await axios.get('http://localhost:8000/url', {
+    const res = await axiosInstance.get(`/url`, {
       headers: {
         'x-user-id': XUserId ? XUserId : '',
         // Authorization: `Bearer ${token}`
@@ -38,6 +39,7 @@ const Home = () => {
     });
     return res.data;
   };
+
 
   const { data: urlsData } = useQuery(['allUrls'], fetchShortUrls);
 

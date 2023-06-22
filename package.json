@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prep": "cd backend && yarn  && cd ../frontend && yarn && yarn build && rm -rf ../backend/templates  && cp -R dist  ../backend/templates/",
+    "prep": "cd backend && yarn && cd node_modules/geoip-lite && yarn run-script updatedb license_key=$GEOIP_LICENSE_KEY  && cd ../../frontend && yarn && yarn build && rm -rf ../backend/templates  && cp -R dist  ../backend/templates/",
     "build": "cd backend && yarn build ",
     "start": "cd backend && yarn start"
   },

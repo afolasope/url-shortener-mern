@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 import Cookies from 'universal-cookie';
 import ms from 'ms';
+import { axiosInstance } from '../config/config';
 
 interface RegisterAccountI {
   email: string;
@@ -30,7 +31,7 @@ export default function Signup() {
 
   const signup = async (value: RegisterAccountI) => {
     const XUserId = cookies.get('x-user-id');
-    const res = axios.post('http://localhost:8000/auth/signup', value, {
+    const res = axiosInstance.post('/auth/signup', value, {
       headers: {
         'x-user-id': XUserId ? XUserId : '',
       },

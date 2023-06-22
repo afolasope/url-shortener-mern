@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import Cookies from 'universal-cookie';
 import * as Yup from 'yup';
 import ms from 'ms';
+import { axiosInstance } from '../config/config';
 
 interface LoginAccountI {
   email: string;
@@ -29,7 +30,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const login = async (value: LoginAccountI) => {
-    const res = axios.post('http://localhost:8000/auth/login', value);
+    const res = axiosInstance.post('/auth/login', value);
     return res;
   };
 

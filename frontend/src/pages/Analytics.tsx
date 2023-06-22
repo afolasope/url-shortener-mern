@@ -12,6 +12,7 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import Footer from '../component/Footer';
+import { axiosInstance } from '../config/config';
 
 export const Analytics = () => {
   const params = useParams();
@@ -22,8 +23,8 @@ export const Analytics = () => {
 
   const getHistoryById = async () => {
     const token = cookies.get('access_token');
-    const res = await axios.get(
-      'http://localhost:8000/history/:shortUrl'.replace(':shortUrl', id || ''),
+    const res = await axiosInstance.get(
+      '/history/:shortUrl'.replace(':shortUrl', id || ''),
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -37,8 +38,8 @@ export const Analytics = () => {
   const deleteUrl = async (id: string) => {
     const token = cookies.get('access_token');
 
-    const res = axios.delete(
-      'http://localhost:8000/url/:shortUrl'.replace(':shortUrl', id),
+    const res = axiosInstance.delete(
+      '/url/:shortUrl'.replace(':shortUrl', id),
       {
         headers: {
           Authorization: `Bearer ${token}`,
