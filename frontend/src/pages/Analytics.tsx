@@ -9,7 +9,6 @@ import {
 import { LogoutBtn } from '../component/LogoutBtn';
 import { useNavigate, useParams } from 'react-router';
 import Cookies from 'universal-cookie';
-import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import Footer from '../component/Footer';
 import { axiosInstance } from '../config/config';

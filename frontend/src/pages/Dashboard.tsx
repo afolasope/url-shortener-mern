@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import validator from 'validator';
 import Cookies from 'universal-cookie';

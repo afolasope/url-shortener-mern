@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';

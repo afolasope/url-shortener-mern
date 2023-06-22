@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { useState } from 'react';
 import { IShortUrls } from '../interface';
 import validator from 'validator';
