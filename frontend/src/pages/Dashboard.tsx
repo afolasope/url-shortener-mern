@@ -19,6 +19,7 @@ export const Dashboard = () => {
   const [customUrlInput, setCustomUrlInput] = useState('');
   const queryClient = useQueryClient();
 
+
   const fetchShortUrls = async () => {
     const token = cookies.get('access_token');
     const res = await axiosInstance.get('/url', {
@@ -33,25 +34,35 @@ export const Dashboard = () => {
 
   const shortenUrl = async (value: { fullUrl: string; customUrl: string }) => {
     const token = cookies.get('access_token');
-    const res = await axiosInstance.post(
-      '/url',
-      value,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosInstance.post('/url', value, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.status === 409) {
+      console.log('error');
+    }
+
     return res.data;
   };
 
   const { mutate: mutateShortenUrl } = useMutation({
     mutationFn: shortenUrl,
     onSuccess: () => {
+      console.log('success');
       queryClient.invalidateQueries(['allUrls']);
       setFullUrlInput('');
+      setCustomUrlInput('');
+    },
+    onError: (error: any) => {
+      toast.error(`${error?.response.data.message}`, {
+        duration: 6000,
+      });
     },
   });
+
+  console.log('first');
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -115,7 +126,7 @@ export const Dashboard = () => {
           <h3 className="text-6xl font-semibold m-6 ml-0">Your links</h3>
           {urlsData?.length > 0 &&
             urlsData?.map((url: IShortUrls) => {
-              return <LinkCard url={url} />;
+              return <LinkCard url={url} key={url.shortUrl} />;
             })}
         </div>
         <div className="w-[30%] bg-white p-6">
@@ -123,7 +134,7 @@ export const Dashboard = () => {
           <History />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

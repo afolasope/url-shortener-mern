@@ -54,9 +54,17 @@ export const LinkCard = ({ url }: Props) => {
 
   const parsedUrl = new URL(url.fullUrl).hostname;
 
+  let pathName: string | boolean = window.location.pathname.split('/')[1];
+  if (pathName === '') {
+    pathName = false;
+  } else {
+    pathName = true;
+  }
   return (
     <div
-      className="border bg-gray-300 rounded-lg flex justify-between mb-4 my-6 lg:mb-0 lg:px-6 lg:py-3"
+      className={`${
+        pathName ? 'bg-rose-300' : 'w-1/2 m-auto'
+      } border rounded-lg flex justify-between mb-4 my-6 lg:mb-0 lg:px-6 lg:py-3`}
       key={url.shortUrl}
     >
       <div className="flex gap-6 items-center">
@@ -97,7 +105,9 @@ export const LinkCard = ({ url }: Props) => {
           </div>
           <div className="flex items-center ">
             <p
-              className={`flex items-center space-x-1 ${getToken() ? 'block' : 'hidden'}`}
+              className={`flex items-center space-x-1 ${
+                getToken() ? 'block' : 'hidden'
+              }`}
             >
               <span>
                 <MdCalendarMonth />
@@ -113,7 +123,9 @@ export const LinkCard = ({ url }: Props) => {
               <span>
                 <MdLink />
               </span>
-              <span className='overflow-ellipsis'>{url.fullUrl.substring(0, 20) + '...'}</span>
+              <span className="overflow-ellipsis">
+                {url.fullUrl.substring(0, 20) + '...'}
+              </span>
             </p>
           </div>
         </div>

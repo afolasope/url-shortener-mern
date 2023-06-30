@@ -19,6 +19,7 @@ const getHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         return res.status(401).send('unauthorized');
     }
     const history = (yield history_1.History.find({})).reverse();
+    console.log(history);
     return res.status(200).send(history);
 });
 exports.getHistory = getHistory;

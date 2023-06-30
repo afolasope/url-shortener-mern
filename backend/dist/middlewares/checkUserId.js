@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkUserId = void 0;
 const passport_1 = __importDefault(require("passport"));
 const checkUserId = (req, res, next) => {
-    console.log('second');
     const userId = req === null || req === void 0 ? void 0 : req.headers['x-user-id'];
     if (userId) {
         return next();

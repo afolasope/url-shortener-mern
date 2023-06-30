@@ -9,6 +9,7 @@ export const getHistory = async (req: any, res: any) => {
   }
 
   const history = (await History.find({})).reverse();
+  console.log(history);
   return res.status(200).send(history);
 };
 

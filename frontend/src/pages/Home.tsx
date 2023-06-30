@@ -39,7 +39,6 @@ const Home = () => {
     return res.data;
   };
 
-
   const { data: urlsData } = useQuery(['allUrls'], fetchShortUrls);
 
   const { mutate: mutateShortenUrl } = useMutation({
@@ -92,17 +91,6 @@ const Home = () => {
           </div>
           <div className="max-w-lg items-center hidden lg:block lg:w-1/2">
             <img src={illustrationWorking} alt="" />
-            {/* <p>
-              With our service you can make your link shorter, safer and more
-              controllable. Join over a thousands people who have already done
-              it.
-            </p>
-            <p className="mt-6">
-              We have been working since 2018 and during this time we have
-              become one of the best services in the world. We offer you a
-              convenient and easy-to-use interface, as well as a high-quality
-              service.
-            </p> */}
           </div>
         </div>
         <div className="absolute w-full -bottom-[5rem] px-6 lg:-bottom-[3rem]">
@@ -132,39 +120,18 @@ const Home = () => {
           </form>
         </div>
       </div>
-      <div className="bg-gray pt-20 pb-20">
+      <div className="bg-[#eee] pt-20 pb-20">
         <div className=" px-6 lg:px-32 ">
-          {!urlsData && (
-            <div className="flex justify-center items-center h-96">
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Laborum voluptas totam illo blanditiis asperiores ad optio sequi
-                aperiam delectus officia aliquid alias, qui assumenda maiores
-                ea, velit harum amet voluptatem.
-              </p>
-              {/* <Loader type="ThreeDots" color="#2acfcf" height={80} width={80} /> */}
-            </div>
-          )}
-          {urlsData?.length > 0 ? (
-            urlsData?.map((url: IShortUrls) => {
-              return <LinkCard url={url} />;
-            })
-          ) : (
-            <div className="flex flex-col items-center text-center">
-              <h1 className="text-3xl">No links yet</h1>
-              <p className="mt-6">
-                Get started by creating your first link
-                <a href="/signup" className="text-blue-600">
-                  Signup
-                </a>
-              </p>
-            </div>
-          )}
+          {urlsData?.length > 0
+            ? urlsData?.map((url: IShortUrls) => {
+                return <LinkCard url={url} key={url.shortUrl} />;
+              })
+            : null}
         </div>
         <div className="flex flex-col text-very-dark-blue items-center text-center mt-12">
           <div className="w-3/5 mx-auto text-center">
             <a href="/signup">
-              <button className="text-white px-4 py-2 bg-blue-600 rounded-lg">
+              <button className="text-white px-4 py-2 bg-dark-violet rounded-lg">
                 Signup
               </button>
             </a>

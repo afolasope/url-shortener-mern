@@ -23,7 +23,7 @@ export const Login = () => {
     email: Yup.string()
       .email('Invalid Email address')
       .required('Email address is required'),
-    password: Yup.string().min(8).required('Password is required'),
+    password: Yup.string().min(6).required('Password is required'),
   });
 
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const Login = () => {
     return res;
   };
 
-  const { mutate: mutateLogin } = useMutation(login, {
+  const { mutate: mutateLogin , isLoading} = useMutation(login, {
     onSuccess: ({ data }) => {
       cookies.set('access_token', data.accessToken, {
         expires: new Date(new Date().setMilliseconds(ms('1d') - 100000)),
@@ -55,27 +55,17 @@ export const Login = () => {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          {/* <Link href={ROUTES.HOMEPAGE}>
-            <img
-              className="mx-auto h-12 w-auto"
-              src="https://res.cloudinary.com/dp8g2jwak/image/upload/v1675610418/quickshippy/logo-white_xo3fck.svg"
-              alt={COMPANY.NAME}
-            />
-          </Link> */}
-        </div>
-
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-3 px-4 shadow sm:rounded-md sm:px-10">
             <h2 className="py-3 mb-4 text-left text-3xl font-bold tracking-tight text-gray-900 max-w-xs">
-              Log into your QuickShippy account
+              Log into your Scissor account
             </h2>
             <Formik
               initialValues={initialValues}
               validationSchema={validate}
               onSubmit={handleSubmit}
             >
-              {(formik) => (
+              {() => (
                 <Form className="space-y-6">
                   <div>
                     <label
@@ -97,7 +87,7 @@ export const Login = () => {
                     <ErrorMessage
                       name="email"
                       render={(msg) => (
-                        <div className="text-shippy-red">{msg}</div>
+                        <div className=" text-red-500 text-sm">{msg}</div>
                       )}
                     />
                   </div>
@@ -117,15 +107,11 @@ export const Login = () => {
                       type="password"
                       required
                     />
-                    {/* <PasswordField
-                        label="Password"
-                        name="password"
-                        id="password"
-                      /> */}
+                 
                     <ErrorMessage
                       name="password"
                       render={(msg) => (
-                        <div className="text-shippy-red">{msg}</div>
+                        <div className=" text-red-500 text-sm">{msg}</div>
                       )}
                     />
                   </div>
@@ -133,11 +119,10 @@ export const Login = () => {
                   <div>
                     <button
                       className="bg-blue-600 flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-shippy-blue focus:ring-offset-2"
-                      disabled={!formik.isValid}
+                      // disabled={!formik.isValid}
                       type="submit"
                     >
-                      Login
-                      {/* {isLoading ? 'Processing...' : 'Login'} */}
+                      {isLoading ? 'Processing...' : 'Login'}
                     </button>
                   </div>
                 </Form>

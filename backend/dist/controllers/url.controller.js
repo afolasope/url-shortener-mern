@@ -39,12 +39,11 @@ const createShortUrl = (req, res) => __awaiter(void 0, void 0, void 0, function*
     if (!validFullUrl) {
         return res.status(401).send({ message: 'Invalid link' });
     }
-    console.log(userId);
     const checkXUser = yield user_1.User.findOne({ _id: userId });
     const validUser = yield user_1.User.findOne({ email: userEmail });
     const checkCustomUrl = yield url_model_1.ShortUrl.findOne({ shortUrl: customUrl });
     if (checkCustomUrl) {
-        return res.status(400).send({ message: 'Custom url  is not available' });
+        return res.status(409).send({ message: 'This custom url already exists for another link' });
     }
     if (validUser) {
         const url = yield url_model_1.ShortUrl.create({
@@ -120,13 +119,14 @@ exports.deleteUrl = deleteUrl;
 const redirectUrl = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { shortUrl } = req.params;
     const url = yield url_model_1.ShortUrl.findOne({ shortUrl });
-    const cacheKey = `cache-${shortUrl}`;
+    // const cacheKey = `cache-${shortUrl}`;
     // Cache.redis?.get(cacheKey);
     if (!url) {
         return res.status(404);
     }
     var ip = '102.219.54.33';
     const geo = geoip_lite_1.default.lookup(ip);
+    console.log('geo', geo);
     yield url_model_1.ShortUrl.updateOne({ shortUrl }, { $set: { clicks: +url.clicks + 1 } });
     const userAgent = req.headers['user-agent'];
     const { os, client, device } = detector.detect(userAgent);

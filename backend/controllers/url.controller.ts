@@ -28,12 +28,11 @@ export const createShortUrl = async (req: any, res: any) => {
   if (!validFullUrl) {
     return res.status(401).send({ message: 'Invalid link' });
   }
-  console.log(userId);
   const checkXUser = await User.findOne({ _id: userId });
   const validUser = await User.findOne({ email: userEmail });
   const checkCustomUrl = await ShortUrl.findOne({ shortUrl: customUrl });
   if (checkCustomUrl) {
-    return res.status(400).send({ message: 'Custom url  is not available' });
+    return res.status(409).send({ message: 'This custom url already exists for another link' });
   }
 
   if (validUser) {
@@ -124,15 +123,17 @@ export const redirectUrl = async (req: any, res: any) => {
   const { shortUrl } = req.params;
   const url = await ShortUrl.findOne({ shortUrl });
 
-  const cacheKey = `cache-${shortUrl}`;
+  // const cacheKey = `cache-${shortUrl}`;
   // Cache.redis?.get(cacheKey);
-
+  
+  
   if (!url) {
     return res.status(404);
   }
-
+  
   var ip = '102.219.54.33';
   const geo = geoip.lookup(ip);
+  console.log('geo', geo)
   await ShortUrl.updateOne({ shortUrl }, { $set: { clicks: +url.clicks + 1 } });
   const userAgent = req.headers['user-agent'];
   const { os, client, device } = detector.detect(userAgent);
