@@ -9,7 +9,7 @@ export const LogoutBtn = () => {
 
   return (
     <button
-      className="bg-blue-500 px-4 py-2 text-white rounded-2xl"
+      className="bg-dark-violet px-4 py-2 text-white rounded-2xl"
       onClick={handleClick}
     >
       <a href="/login">Logout</a>

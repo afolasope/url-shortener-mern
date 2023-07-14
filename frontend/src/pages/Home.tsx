@@ -10,6 +10,7 @@ import Footer from '../component/Footer';
 import bgboostDesktop from '../assets/images/bg-boost-desktop.svg';
 import illustrationWorking from '../assets/images/illustration-working.svg';
 import { axiosInstance } from '../config/config';
+import { MdKebabDining } from 'react-icons/md';
 
 const uuid = `${generateNumber()}`;
 const Home = () => {
@@ -62,13 +63,18 @@ const Home = () => {
   return (
     <div>
       <div className="flex justify-between py-3 px-6 md:px-32">
-        <h1 className="text-3xl"> Scissors</h1>
-        <div className="space-x-6">
+        <h1 className="text-3xl text-red-700"> Scissors</h1>
+        <div className="space-x-6 hidden md:block">
           <button className="bg-transparent px-4 py-2 text-black rounded-2xl">
             <a href="/login">Login</a>
           </button>
           <button className="bg-cyan px-4 py-2 text-white rounded-2xl">
             <a href="/signup">Signup</a>
+          </button>
+        </div>
+        <div className='md:hidden'>
+          <button className="bg-cyan px-4 py-2 text-white rounded-2xl md:hidden">
+            <MdKebabDining/>
           </button>
         </div>
       </div>
@@ -121,7 +127,7 @@ const Home = () => {
         </div>
       </div>
       <div className="bg-[#eee] pt-20 pb-20">
-        <div className=" px-6 lg:px-32 ">
+        <div className="p-6 lg:px-96 w-full">
           {urlsData?.length > 0
             ? urlsData?.map((url: IShortUrls) => {
                 return <LinkCard url={url} key={url.shortUrl} />;
@@ -131,7 +137,7 @@ const Home = () => {
         <div className="flex flex-col text-very-dark-blue items-center text-center mt-12">
           <div className="w-3/5 mx-auto text-center">
             <a href="/signup">
-              <button className="text-white px-4 py-2 bg-dark-violet rounded-lg">
+              <button className="text-white px-4 py-2 bg-cyan  rounded-lg">
                 Signup
               </button>
             </a>

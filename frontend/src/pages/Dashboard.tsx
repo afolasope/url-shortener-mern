@@ -19,7 +19,6 @@ export const Dashboard = () => {
   const [customUrlInput, setCustomUrlInput] = useState('');
   const queryClient = useQueryClient();
 
-
   const fetchShortUrls = async () => {
     const token = cookies.get('access_token');
     const res = await axiosInstance.get('/url', {
@@ -62,8 +61,6 @@ export const Dashboard = () => {
     },
   });
 
-  console.log('first');
-
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (!fullUrlInput) return toast.error('Field cannot be empty');
@@ -76,20 +73,20 @@ export const Dashboard = () => {
 
   return (
     <div>
-      <div className="flex justify-between p-3 px-24">
+      <div className="flex justify-between p-3 lg:px-24">
         <h1 className="text-3xl">Dashboard</h1>
         <LogoutBtn />
       </div>
-      <div className="md:flex gap-12 bg-[#eee] px-24 pt-12">
+      <div className="md:flex gap-12 bg-[#eee] lg:px-24 pt-12">
         <p className="p-6 bg-white md:w-[50%] mb-6 md:mb-0">
-          <span>Coverage/Cities:</span> <span>6</span>
+          <span>Clicks:</span> <span>{history.length}</span>
         </p>
         <p className="p-6 bg-white md:w-[50%]">
           <span>Links:</span> <span>{urlsData?.length}</span>
         </p>
       </div>
-      <div className="md:flex items-start space-x-6 bg-[#eee] px-24 py-16">
-        <div className="w-[70%] bg-white p-6">
+      <div className="max-h-full md:flex items-start gap-6 bg-[#eee] lg:px-24 py-16">
+        <div className="md:w-[70%] bg-white p-6">
           <p className="text-3xl mb-6">Create your link</p>
           <div className="flex flex-col mb-4 ">
             <label htmlFor="full-link" className="mb-2">
@@ -118,18 +115,20 @@ export const Dashboard = () => {
             />
           </div>
           <button
-            className="bg-blue-600 p-3 w-full text-white font-medium"
+            className="bg-dark-violet p-3 w-full text-white font-medium"
             onClick={(e) => handleSubmit(e)}
           >
             Create Link Here
           </button>
           <h3 className="text-6xl font-semibold m-6 ml-0">Your links</h3>
-          {urlsData?.length > 0 &&
-            urlsData?.map((url: IShortUrls) => {
-              return <LinkCard url={url} key={url.shortUrl} />;
-            })}
+          <div className="w-full">
+            {urlsData?.length > 0 &&
+              urlsData?.map((url: IShortUrls) => {
+                return <LinkCard url={url} key={url.shortUrl} />;
+              })}
+          </div>
         </div>
-        <div className="w-[30%] bg-white p-6">
+        <div className="md:w-[30%] bg-white p-6">
           <h3 className="text-4xl">Links history</h3>
           <History />
         </div>

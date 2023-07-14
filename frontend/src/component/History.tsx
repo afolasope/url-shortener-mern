@@ -11,7 +11,7 @@ export const History = () => {
   const cookies = new Cookies();
   const getHistory = async () => {
     const token = cookies.get('access_token');
-    const res = await axiosInstance.get(`/url/history`, {
+    const res = await axiosInstance.get(`/history`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -22,15 +22,15 @@ export const History = () => {
   const { data: history } = useQuery(['history'], getHistory);
 
   return (
-    <div>
+    <div className='max-h-full overflow-y-scroll'>
       <p className="mb-6">Access your clicks history</p>
       {history &&
-        history?.map((item: IHistory) => {
+        history?.map((item: IHistory, index:number) => {
           const currentDate = new Date();
           const time = dayjs(item.time).from(currentDate);
           return (
             <div
-              key={`${item.shortUrl}${item.time}`}
+              key={`${item.shortUrl}${item.time}${index}`}
               className="bg-[#eee] mb-3 p-2 rounded-sm"
             >
               <p className="flex items-center text-sm gap-2">
