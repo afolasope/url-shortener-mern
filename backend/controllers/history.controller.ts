@@ -2,6 +2,7 @@ import { History } from '../models/history';
 import { User } from '../models/user';
 
 export const getHistory = async (req: any, res: any) => {
+  console.log('firstname');
   const { email } = req.user;
   const user = await User.findOne({ email });
   if (!user) {

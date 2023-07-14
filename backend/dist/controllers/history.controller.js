@@ -13,6 +13,7 @@ exports.getHistoryById = exports.getHistory = void 0;
 const history_1 = require("../models/history");
 const user_1 = require("../models/user");
 const getHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('firstname');
     const { email } = req.user;
     const user = yield user_1.User.findOne({ email });
     if (!user) {
