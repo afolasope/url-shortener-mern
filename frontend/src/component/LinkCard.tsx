@@ -55,7 +55,15 @@ export const LinkCard = ({ url }: Props) => {
     document.body.removeChild(downloadLink);
   };
 
-  const parsedUrl = new URL(url.fullUrl).hostname;
+  let parsedUrl;
+  if (
+    !url.fullUrl.startsWith('http://') &&
+    !url.fullUrl.startsWith('https://')
+  ) {
+    parsedUrl = new URL(`http://${url.fullUrl}`).hostname;
+  } else {
+    parsedUrl = new URL(url.fullUrl).hostname;
+  }
 
   let pathName: string | boolean = window.location.pathname.split('/')[1];
   if (pathName === '') {

@@ -66,7 +66,9 @@ export const Dashboard = () => {
     if (!fullUrlInput) return toast.error('Field cannot be empty');
 
     const isValidLink = validator.isURL(fullUrlInput);
-    if (!isValidLink) return toast.error('Enter a valid url');
+    if (!isValidLink) {
+      return toast.error('Please enter a valid link');
+    }
 
     mutateShortenUrl({ fullUrl: fullUrlInput, customUrl: customUrlInput });
   };
@@ -93,7 +95,7 @@ export const Dashboard = () => {
               Full Link
             </label>
             <input
-              type="text"
+              type="url"
               name="full-link"
               id="full-link"
               className="border p-3"
@@ -106,7 +108,7 @@ export const Dashboard = () => {
               Custom Link (optional)
             </label>
             <input
-              type="text"
+              type="url"
               name="custom-link"
               id="custom-link"
               className="border p-3"
